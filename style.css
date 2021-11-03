@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    background-color: cadetblue;
+    color: white;
+    text-align: center;
+}
+
+main {
+    height: 90vh;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#todo {
+    height: 2rem;
+    width: 20rem;
+    font-size: 1rem;
+}
+
+.submit {
+    font-size: 1rem;
+    height: 2rem;
+    background-color: black;
+    padding: 5px;
+    color: white;
+}
+
+.tasks-heading {
+    font-size: 2rem;
+    border-bottom: 2px solid black;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tasks {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+    list-style-type : none;
+}
+
+span {
+    margin-right: 1rem;
+}
+
+i:active {
+    transform: scale(0.8);
+}
+
+li {
+    margin-bottom: 0.8rem;
+}
+
+/* .pending {
+
+}
+
+.completed {
+
+} */
