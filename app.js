@@ -60,20 +60,68 @@ function updateTodo(element) {
     updateElement = element.parentNode.firstChild.nextSibling;
 } 
 
+function moveUp(element,pending) {
+    let li = element.parentNode;
+    if(pending) {
+        if(li.previousElementSibling)
+            pendingTasksList.insertBefore(li,li.previousElementSibling);
+    } else {
+        if(li.previousElementSibling)
+            completedTasksList.insertBefore(li,li.previousElementSibling);
+    }
+}
+
+function moveDown(element,pending) {
+    let li = element.parentNode;
+    if(pending) {
+        if(li.nextElementSibling)
+            pendingTasksList.insertBefore(li.nextElementSibling,li);
+    } else {
+        if(li.nextElementSibling)
+            completedTasksList.insertBefore(li.nextElementSibling,li);
+    }
+}
+
+function moveToCompleted(element) {
+    let a = element.parentNode;
+    completedTasksList.append(a);
+    a.firstChild.nextElementSibling.style.textDecoration = "line-through";
+    a.firstChild.nextElementSibling.style.color = "gray";
+}
+
 pendingTasksList.addEventListener('click',function(e) {
-    let work;
     let targetElement = e.target;
     if(targetElement.classList.contains('fa-edit')) {
-        work = 1;
         updateTodo(targetElement);
     } else if(targetElement.classList.contains('fa-trash-alt')) {
-        work = 2;
         deleteTodo(targetElement);
     } else if(targetElement.classList.contains('fa-arrow-up')) {
-        work = 3;
+        moveUp(targetElement,true);
     } else if(targetElement.classList.contains('fa-arrow-down')) {
-        work = 4;
+        moveDown(targetElement,true);
     } else if(targetElement.type == "checkbox") {
-        work = 5;
+        moveToCompleted(targetElement);
+    }
+});
+
+function moveToPending(element) {
+    let a = element.parentNode;
+    pendingTasksList.append(a);
+    a.firstChild.nextElementSibling.style.textDecoration = "none";
+    a.firstChild.nextElementSibling.style.color = "black";
+}
+
+completedTasksList.addEventListener('click',function(e) {
+    let targetElement = e.target;
+    if(targetElement.classList.contains('fa-edit')) {
+        updateTodo(targetElement);
+    } else if(targetElement.classList.contains('fa-trash-alt')) {
+        deleteTodo(targetElement);
+    } else if(targetElement.classList.contains('fa-arrow-up')) {
+        moveUp(targetElement,false);
+    } else if(targetElement.classList.contains('fa-arrow-down')) {
+        moveDown(targetElement,false);
+    } else if(targetElement.type == "checkbox") {
+        moveToPending(targetElement);
     }
 });
