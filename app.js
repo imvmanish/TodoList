@@ -4,6 +4,7 @@ const completedTasksList = document.querySelector('.completed-tasks-list');
 const inpElement = document.querySelector('#todo');
 //state = 0 for adding,state = 1 for updating
 let state = 0;
+let updateElement;
 
 function addTodo() {
     let liElement = document.createElement('li');
@@ -40,6 +41,11 @@ submitBtn.addEventListener('click',function() {
     }
     if(state == 0) {
         addTodo();
+    } else if(state == 1) {
+        updateElement.textContent = inpElement.value;
+        submitBtn.textContent = "Add Todo";
+        inpElement.value = "";
+        state = 0;
     }
 });
 
@@ -47,11 +53,19 @@ function deleteTodo(element) {
     element.parentNode.remove();
 }
 
+function updateTodo(element) {
+    submitBtn.textContent = "Update";
+    inpElement.value = element.parentNode.firstChild.nextSibling.textContent;
+    state = 1;
+    updateElement = element.parentNode.firstChild.nextSibling;
+} 
+
 pendingTasksList.addEventListener('click',function(e) {
     let work;
     let targetElement = e.target;
     if(targetElement.classList.contains('fa-edit')) {
         work = 1;
+        updateTodo(targetElement);
     } else if(targetElement.classList.contains('fa-trash-alt')) {
         work = 2;
         deleteTodo(targetElement);
