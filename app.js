@@ -43,6 +43,10 @@ submitBtn.addEventListener('click',function() {
     }
 });
 
+function deleteTodo(element) {
+    element.parentNode.remove();
+}
+
 pendingTasksList.addEventListener('click',function(e) {
     let work;
     let targetElement = e.target;
@@ -50,10 +54,12 @@ pendingTasksList.addEventListener('click',function(e) {
         work = 1;
     } else if(targetElement.classList.contains('fa-trash-alt')) {
         work = 2;
+        deleteTodo(targetElement);
     } else if(targetElement.classList.contains('fa-arrow-up')) {
         work = 3;
     } else if(targetElement.classList.contains('fa-arrow-down')) {
         work = 4;
+    } else if(targetElement.type == "checkbox") {
+        work = 5;
     }
-    console.log(work);
 });
